@@ -1,0 +1,39 @@
+/* .Button{
+    background-color: #03becd;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+.Button:hover{
+    background-color: #298890;
+}
+.Button a{
+    text-decoration: none;
+} */
+
+/* Define styles for the Button component */
+
+.Button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underlines from links */
+  
+    /* Add more styles as needed */
+  }
+  
+  .Button:hover {
+    background-color: #0056b3; /* Hover background color */
+  }
+  
+  /* You can add more styles for different states (e.g., :active) */
+  
