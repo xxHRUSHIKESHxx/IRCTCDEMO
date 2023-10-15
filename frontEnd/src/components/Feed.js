@@ -7,31 +7,34 @@ import Button from "./Button";
 import BookSeat from "./BookSeat";
 import { useNavigate } from "react-router-dom";
 
-
 const Feed = () => {
   const { data, loading, error } = useFetch("/addTrain");
 
-  console.log(data);
   const navigate = useNavigate();
 
+  // var xyz ;
   const [trains, setTrains] = useState([]);
+  const [trainID, setTrainID] = useState(null);
 
+  const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
+  const [totalSeats, setTotalSeats] = useState();
   const { user } = useContext(AuthContext);
-
-  const handleClick = () => {
-    if (user) {
-      setOpenModal(true);
-    } else {
-      navigate("/login");
-    }
-  };
-
   useEffect(() => {
     // You can set the existing data to the trains state directly
     setTrains(data);
   }, [data]);
+  const handleClick = (trainid, noOfSeats) => {
+    if (user) {
+      setTrainID(trainid);
+      setOpenModal(true);
+      setTotalSeats(noOfSeats);
+    } else {
+      navigate("/login");
+    }
+  };
+  const hello = trainID;
+  const availableSeats = totalSeats;
 
   return (
     <>
@@ -54,17 +57,22 @@ const Feed = () => {
               </thead>
               <tbody>
                 {trains.map((train) => (
-                  <tr key={train.id}>
+                  <tr key={train._id}>
                     <td>{train.name}</td>
                     <td>{train.from}</td>
                     <td>{train.to}</td>
                     <td>{train.price}</td>
-                   
+                    {/* <td>{train.availableSeats}</td> */}
+                    {/* <td>{train._id}</td> */}
 
                     <td>
-                      <button onClick={handleClick}>Book Now</button>
-                      {/* link={"/bookseat"}  {train.seats} */}
-                      {openModal && <BookSeat totalSeat={train.availableSeats} trainId={train.seats} />}
+                      <button
+                        onClick={() =>
+                          handleClick(train._id, train.availableSeats )
+                        }
+                      >
+                        Book Now
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -74,9 +82,21 @@ const Feed = () => {
           </div>
         </>
       )}
-     {/* {openModal && <BookSeat setOpen={setOpenModal} trainId={train.seats} />} */}
+      {openModal && (
+        <BookSeat setOpen={setOpenModal} trainId={hello} seatNo={totalSeats} />
+      )}
     </>
   );
 };
 
 export default Feed;
+
+{
+  /* { setTrainData(train.id) && setTotalSeat(train.seats) } */
+}
+{
+  /* link={"/bookseat"}  {train.seats} */
+}
+{
+  /* { xyz = train.seats } */
+}

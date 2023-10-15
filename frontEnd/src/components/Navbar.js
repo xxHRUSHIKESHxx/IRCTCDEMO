@@ -11,11 +11,11 @@ const Navbar = () => {
         <div className="brand">
           <a href="/"><span className="linkColour">IRCTC Demo</span> </a>
         </div>
-        {user ? <div className="cart" >
+        {/* {user ? <div className="cart" >
           <button>your tickets</button>
         </div> : ""
           
-        }
+        } */}
 
         {user ? user.username :(
            <div className="cart">
