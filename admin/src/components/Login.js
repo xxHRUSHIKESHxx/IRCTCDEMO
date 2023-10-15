@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "./Login.css";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const [credentials, setCredentials] = useState({
     username: undefined,
@@ -10,27 +10,30 @@ function Login() {
   });
   const { loading, error, dispatch } = useContext(AuthContext);
 
-  const navigate = useNavigate()
-  const handleChange = (e) =>{
-     setCredentials(prev =>({...prev , [e.target.id] : e.target.value }))
-  }
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
 
-
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    dispatch({type:"LOGIN_START"})
-    try{
-      const res = await axios.post("/auth/login" , credentials);
-      dispatch({type:"LOGIN_SUCCESS" , payload:res.data.details});
-      navigate("/")
+    dispatch({ type: "LOGIN_START" });
+    try {
+      const res = await axios.post("/auth/login", credentials);
+      if (res.data.isAdmin) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+        navigate("/");
+      }
+      else{
+        dispatch({ type: "LOGIN_FAILURE", payload: {message:"you are not allowed"} });
+       
+
+      }
+     
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
     }
-    catch(err){
-      dispatch({type:"LOGIN_FAILURE" , payload:err.response.data})
-    }
-  }
-
-
-
+  };
 
   return (
     <div className="login-container" id="login">
@@ -43,7 +46,6 @@ function Login() {
               type="text"
               placeholder="username"
               id="username"
-            
               onChange={handleChange}
             />
           </div>
@@ -56,7 +58,12 @@ function Login() {
               onChange={handleChange}
             />
           </div>
-          <button diabled={loading} className="button" type="button" onClick={handleClick}>
+          <button
+            diabled={loading}
+            className="button"
+            type="button"
+            onClick={handleClick}
+          >
             Login
           </button>
           {error && <span>{error.message}</span>}
