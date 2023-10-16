@@ -34,6 +34,13 @@
   .Button:hover {
     background-color: #0056b3; /* Hover background color */
   }
+
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
   
   /* You can add more styles for different states (e.g., :active) */
   

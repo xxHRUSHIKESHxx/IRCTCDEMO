@@ -4,7 +4,7 @@ import {createError} from "../utils/error.js";
 
 
 
-// create room 
+// create seat 
 export const createSeat = async (req , res , next) => {
 
  const trainId = req.params.trainid;
@@ -89,4 +89,32 @@ export const  getSeats = async(req , res , next) =>{
        }
 
 
+}
+// get specific seat
+// export const  getSpecificSeat = async(req , res , next) =>{
+
+//   try {
+//       const seats =  await Seat.findById( req.params.id);
+//        res.status(200).json(seats);
+//      } catch (err) {
+//       next(err);
+//      }
+
+// }
+
+// get specific seat
+export const getSpecificSeat = async (req , res , next ) =>{
+  try{
+    const sits = await Seat.findById(req.params.id);
+    const list = await Promise.all(Seat.seats.map((seat) =>{
+      // return Seat.findById(seat);
+      seat.seatNumber?.map((seatNumber)  =>{
+        return  Seat.seatNumber.findById(seatNumber)
+      })
+    }))
+    res.status(200).json(list);
+  }
+  catch(err){
+    next(err);
+  }
 }

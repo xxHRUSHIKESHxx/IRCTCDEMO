@@ -7,7 +7,7 @@ import Button from "./Button";
 import BookSeat from "./BookSeat";
 import { useNavigate } from "react-router-dom";
 
-const Feed = () => {
+const Feed = () => { 
   const { data, loading, error } = useFetch("/addTrain");
 
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Feed = () => {
       setOpenModal(true);
       setTotalSeats(noOfSeats);
     } else {
-      navigate("/login");
+      navigate("/register");
     }
   };
   const hello = trainID;

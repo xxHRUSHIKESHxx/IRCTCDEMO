@@ -2,7 +2,7 @@
 import express from "express";
 import { verifyAdmin, verifyToken ,verifyUser } from "../utils/verifyToken.js";
 
-import { createSeat, updateSeat, deleteSeat, getSeat, getSeats } from "../controllers/seat.js";
+import { createSeat, updateSeat, deleteSeat, getSeat, getSeats ,getSpecificSeat } from "../controllers/seat.js";
 const router = express.Router();
 
 
@@ -16,6 +16,8 @@ router.delete("/:id/:trainid", verifyAdmin , deleteSeat);
 router.get("/:id", getSeat);
 // getall
 router.get("/", getSeats);
+// get specific seats
+ 
 
 export default router;
 

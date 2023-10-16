@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import './Register.css';
-
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 const Register=() => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [credentials, setCredentials] = useState({
+    username: undefined,
+    emal:undefined,
+    password: undefined,
+  });
+ 
+  const navigate = useNavigate()
+  const handleChange = (e) =>{
+     setCredentials(prev =>({...prev , [e.target.id] : e.target.value }))
+  }
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
+  const handleClick = async(e) => {
+    e.preventDefault();
+  
+    try{
+      const res = await axios.post("/auth/register" , credentials);
+     
+      navigate("/login")
+    }
+    catch(err){
+     console.log(err);
+    }
+  }
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleRegister = () => {
-    // Implement your registration logic here
-    console.log('Username:', username);
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
 
   return (
     <div className="registration">
@@ -34,27 +37,27 @@ const Register=() => {
           <input
             type="text"
             placeholder="User Name"
-            value={username}
-            onChange={handleUsernameChange}
+            
+            onChange={handleChange}
           />
         </div>
         <div className="form-group">
           <input
             type="email"
             placeholder="Email"
-            value={email}
-            onChange={handleEmailChange}
+            
+            onChange={handleChange}
           />
         </div>
         <div className="form-group">
           <input
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={handlePasswordChange}
+           
+            onChange={handleChange}
           />
         </div>
-        <button className="register-button" onClick={handleRegister}>
+        <button className="register-button" onClick={handleClick}>
           Register
         </button>
         <a href="/login">already have account</a>
