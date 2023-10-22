@@ -1,7 +1,7 @@
 import express from "express";
 import { verifyAdmin, verifyToken ,verifyUser } from "../utils/verifyToken.js";
 
-import { createTrain, updateTrain, deleteTrain, getTrains, getTrain ,getTrainSeat ,getSpecificSeat } from "../controllers/addTrain.js";
+import { createTrain, updateTrain, deleteTrain, getTrains, getTrain ,getTrainSeat  } from "../controllers/addTrain.js";
 const router = express.Router();
 
 
@@ -18,7 +18,7 @@ router.get("/", getTrains);
 
 // get train wise seat
 router.get("/seat/:id",getTrainSeat);
-// get specific seat details
-router.get("/seat/:id/:seatid", getSpecificSeat);
+
+
 
 export default router;

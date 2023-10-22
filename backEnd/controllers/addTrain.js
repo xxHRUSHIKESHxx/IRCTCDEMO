@@ -8,7 +8,7 @@ export const  createTrain = async(req , res , next) =>{
     try {
       const savedTrain = await newTrain.save();
       res.status(200).json(savedTrain);
-      res.send("hello this is addtrains page");
+      res.send("the train has been created");
     } catch (err) {
      next(err);
     }
@@ -74,7 +74,9 @@ export const  getTrains = async(req , res , next) =>{
 
 }
 
-// get seatby train
+
+
+
 
 export const getTrainSeat = async (req , res , next ) =>{
   try{
@@ -83,28 +85,6 @@ export const getTrainSeat = async (req , res , next ) =>{
       return Seat.findById(seat);
     }))
     res.status(200).json(list);
-  }
-  catch(err){
-    next(err);
-  }
-}
-
-// get specific seat
-export const getSpecificSeat = async (req , res , next ) =>{
-  try{
-    const trains = await Trains.findById(req.params.id);
-    const list = await Promise.all(trains.seats.map((seat) =>{
-      return   Seat.findById(seat);
-   
-    }))
-  const seatNumberArray = list[0].seatNumber
-  const mappedResults = seatNumberArray.map((seat) => {
-     return seatNumber.findById(seat)
-  })
-    // seat.seatNumber?.map((seatNumber)  =>{
-    //   return  Seat.seatNumber.findById(seatNumber)
-    // })
-    res.status(200).json(mappedResults);
   }
   catch(err){
     next(err);

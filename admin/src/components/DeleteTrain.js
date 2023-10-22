@@ -8,9 +8,9 @@ const DeleteTrain = () => {
 
   useEffect(() => {
     // You can set the existing data to the trains state directly
-    setTrains(data);
+    setTrains(data); 
   }, [data]);
-
+ 
  const handleDelete = async(id) =>{
    try{
     await axios.delete(`/addTrain/${id}`)
