@@ -15,7 +15,7 @@ const [formData, setFormData] = useState({
   availableSeats: 0,
 });
 
-const handleCreateTrain = async() =>{
+const handleCreateTrain = async(req,res) =>{
     try{
       await axios.post(`/addTrain` , formData);
      setFormData({
@@ -26,7 +26,7 @@ const handleCreateTrain = async() =>{
       seats: [],
       availableSeats: 0,
      })
-      // console.log("data is sent",response.data);
+      console.log("data is sent",res.data);
       }
      catch(err){
       console.log(err);
